@@ -1,3 +1,5 @@
+.PHONY: build test dev_install
+
 dev_install:
 	poetry install && poetry run pre-commit install
 
