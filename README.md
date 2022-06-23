@@ -1,16 +1,12 @@
-# pdf2text - extract the text from a set of pdf files in a directory
+# pdf2text
 
-The pdf2text cli allows you to automatically extract the text from a set of pdf files in a directory. A dockerfile is provided which allows you to build a docker image which has pdfalto preinstalled.
+This is our CLI to extract text and information from PDF files. At the moment it uses the Adobe Extract API, and falls back to pdfalto if that fails.
 
-## Using the docker image
+## Docker development (recommended)
 
 ### 1. Building the docker image
-The build context when building the docker image should be the parent directory of `pipeline`. This is so that common python packages can be copied to the image.
 
-```
-cd navigator
-docker build -f pipeline/Dockerfile -t navigator_pipeline .
-```
+`make build` or `docker build -t navigator-pdf-parser .`
 
 ### 2. Running the cli
 Use the following commands to run the pdf2text cli:
@@ -18,7 +14,7 @@ Use the following commands to run the pdf2text cli:
 **local:**
 
 ```
-docker run -v /path/to/pdf/files:/pdf-in -v /path/to/data/directory:/data-dir -v /path/to/output/directory:/pdf-out navigator_pipeline python /app/pdf2text.py /pdf-in /data-dir /pdf-out
+docker run -v /path/to/pdf/files:/pdf-in -v /path/to/data/directory:/data-dir -v /path/to/output/directory:/pdf-out navigator-pdf-parser python /app/pdf2text.py /pdf-in /data-dir /pdf-out
 ```
 
 **s3:**
@@ -46,3 +42,9 @@ e.g. `pdf-input-file.pdf` will produce the following 2 files in the output direc
 
 - `pdf-input-file.json`
 - `pdf-input-file.txt`
+
+## Local development
+
+1. Install [pdfalto](https://github.com/kermitt2/pdfalto), and set the `PDFALTO_PATH` environment variable to the installation path.
+2. Install poetry environment and pre-commit hooks: `make dev_install`
+3. Activate poetry environment: `poetry shell`

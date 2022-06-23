@@ -13,8 +13,8 @@ from uuid import uuid4
 
 from tqdm import tqdm
 
-from navigator.core.aws import S3Client
-from navigator.core.log import get_logger
+from extract.aws import S3Client
+from extract.utils import get_logger
 from extract.extract import DocumentEmbeddedTextExtractor, AdobeAPIExtractor
 from extract.exceptions import DocumentTextExtractorException
 
